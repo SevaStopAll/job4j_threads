@@ -8,10 +8,10 @@ import java.net.URL;
 class Example {
 
     public static void main(String[] args) {
-        download("https://speed.hetzner.de/100MB.bin");
+        /*download("https://speed.hetzner.de/100MB.bin");*/
     }
 
-    public static void download(String link) {
+ /*   public static void download(String link) {
         try {
             URL url = new URL(link);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -75,5 +75,5 @@ class Example {
             inputStream.close();
         }
     }
-
+*/
 }
