@@ -10,7 +10,7 @@ public class ConsoleProgress implements Runnable {
                     Thread.sleep(500);
                     System.out.print("\r load: " + ch);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
                 }
             }
         }
