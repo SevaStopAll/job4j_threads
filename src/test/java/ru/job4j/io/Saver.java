@@ -1,3 +1,4 @@
+/*
 package ru.job4j.io;
 
 import java.io.File;
@@ -22,3 +23,4 @@ public final class Saver {
         }
     }
 }
+*/
