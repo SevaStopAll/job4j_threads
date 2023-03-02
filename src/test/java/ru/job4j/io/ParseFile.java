@@ -1,4 +1,3 @@
-/*
 package ru.job4j.io;
 
 import java.io.*;
@@ -26,4 +25,3 @@ public final class ParseFile {
         return output;
     }
 }
-*/
