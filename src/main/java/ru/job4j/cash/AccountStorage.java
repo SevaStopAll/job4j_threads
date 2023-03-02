@@ -19,11 +19,19 @@ public class AccountStorage {
 
     public synchronized boolean update(Account account) {
         boolean result = false;
+        if (getById(account.id()).isEmpty()) {
+            return false;
+        }
+        accounts.replace(account.id(), account);
         return result;
     }
 
     public synchronized boolean delete(int id) {
-        boolean result = false;
+        boolean result = true;
+        if (getById(id).isEmpty()) {
+            return false;
+        }
+        accounts.remove(id);
         return result;
     }
 
@@ -38,6 +46,13 @@ public class AccountStorage {
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean result = false;
+        Account accountFrom = getById(fromId).get();
+        Account accountTo = getById(toId).get();
+        if (getById(fromId).isEmpty() || getById(toId).isEmpty()) {
+            return false;
+        }
+        update(new Account(fromId, accountFrom.amount() - amount));
+        update(new Account(toId, accountTo.amount() + amount));
         return result;
     }
 }
