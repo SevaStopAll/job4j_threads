@@ -11,17 +11,27 @@ public final class ParseFile {
     }
 
     public String content(Predicate<Character> filter) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         try (InputStream i = new FileInputStream(file)) {
             int data;
-            while ((data = i.read()) > 0) {
+            while ((data = i.read()) != 1) {
                 if (filter.test((char) data)) {
-                    output += (char) data;
+                    output.append((char) data);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return output;
+        return output.toString();
+    }
+
+    public String getContent() throws IOException {
+        Predicate<Character> filter = ch -> (true);
+        return content(filter);
+    }
+
+    public String getContentWithoutUnicode() throws IOException {
+        Predicate<Character> filter = ch -> (ch < 0x80);
+        return content(filter);
     }
 }
