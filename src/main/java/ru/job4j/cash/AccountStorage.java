@@ -13,12 +13,12 @@ public class AccountStorage {
         return accounts.putIfAbsent(account.id(), account) != null;
     }
 
-    public synchronized Account update(Account account) {
-        return accounts.replace(account.id(), account);
+    public synchronized boolean update(Account account) {
+        return accounts.replace(account.id(), account) != null;
     }
 
-    public synchronized Account delete(int id) {
-        return accounts.remove(id);
+    public synchronized boolean delete(int id) {
+        return accounts.remove(id) != null;
     }
 
     public synchronized Optional<Account> getById(int id) {
@@ -27,11 +27,13 @@ public class AccountStorage {
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean result = true;
-        if (getById(fromId).isEmpty() || getById(toId).isEmpty()) {
+        Optional<Account> from = getById(fromId);
+        Optional<Account> to = getById(toId);
+        if (from.isEmpty() || to.isEmpty()) {
             return false;
         }
-        update(new Account(fromId, accounts.get(fromId).amount() - amount));
-        update(new Account(toId, accounts.get(toId).amount() + amount));
+        update(new Account(fromId, from.get().amount() - amount));
+        update(new Account(toId, to.get().amount() + amount));
         return result;
     }
 }
