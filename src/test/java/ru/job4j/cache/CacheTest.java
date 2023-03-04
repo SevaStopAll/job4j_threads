@@ -9,7 +9,7 @@ class CacheTest {
     Cache testCache = new Cache();
 
     @Test
-    void whenAdd(){
+    void whenAdd() {
         assertThat(testCache.add(new Base(1, 1))).isTrue();
         assertThat(testCache.add(new Base(2, 1))).isTrue();
         assertThat(testCache.add(new Base(3, 1))).isTrue();
@@ -17,7 +17,7 @@ class CacheTest {
     }
 
     @Test
-    void whenDelete(){
+    void whenDelete() {
         Base model = new Base(1, 1);
         assertThat(testCache.add(model)).isTrue();
         assertThat(testCache.add(model)).isFalse();
@@ -26,14 +26,14 @@ class CacheTest {
     }
 
     @Test
-    void whenUpdate(){
+    void whenUpdate() {
         Base model = new Base(1, 1);
         testCache.add(model);
         assertThat(testCache.update(new Base(1, 1))).isTrue();
     }
 
     @Test
-    void whenUpdateOldVersion(){
+    void whenUpdateOldVersion() {
         Base model = new Base(1, 2);
         testCache.add(model);
         assertThatThrownBy(() -> testCache.update(new Base(1, 1)))
