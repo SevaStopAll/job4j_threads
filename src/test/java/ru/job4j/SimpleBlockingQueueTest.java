@@ -14,14 +14,22 @@ class SimpleBlockingQueueTest {
     void whenOfferAndPoll() throws InterruptedException {
         List<Integer> list = new ArrayList<>();
         Thread producer = new Thread(() -> {
-            queue.offer(5);
-            queue.offer(10);
-            queue.offer(11);
+            try {
+                queue.offer(5);
+                queue.offer(10);
+                queue.offer(11);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }, "Producer");
         Thread consumer = new Thread(() -> {
-            list.add(queue.poll());
-            list.add(queue.poll());
-            list.add(queue.poll());
+            try {
+                list.add(queue.poll());
+                list.add(queue.poll());
+                list.add(queue.poll());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }, "Consumer");
         consumer.start();
         producer.start();
@@ -34,20 +42,28 @@ class SimpleBlockingQueueTest {
     void whenOfferAndPollMoreThanSize() throws InterruptedException {
         List<Integer> list = new ArrayList<>();
         Thread producer = new Thread(() -> {
-            queue.offer(5);
-            queue.offer(10);
-            queue.offer(11);
-            queue.offer(12);
-            queue.offer(13);
-            queue.offer(14);
+            try {
+                queue.offer(5);
+                queue.offer(10);
+                queue.offer(11);
+                queue.offer(12);
+                queue.offer(13);
+                queue.offer(14);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }, "Producer");
         Thread consumer = new Thread(() -> {
+            try {
             list.add(queue.poll());
             list.add(queue.poll());
             list.add(queue.poll());
             list.add(queue.poll());
             list.add(queue.poll());
             list.add(queue.poll());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }, "Consumer");
         consumer.start();
         producer.start();

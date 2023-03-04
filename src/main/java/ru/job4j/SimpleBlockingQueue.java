@@ -11,35 +11,23 @@ public final class SimpleBlockingQueue<T> {
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
     private final int maxElements;
-    private int currentElements;
 
     public SimpleBlockingQueue(int elements) {
         this.maxElements = elements;
-        currentElements = 0;
     }
 
-    public synchronized void offer(T value) {
-            while (currentElements == maxElements) {
-                try {
+    public synchronized void offer(T value) throws InterruptedException {
+            while (queue.size() == maxElements) {
                     wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
                 }
-            }
             queue.add(value);
-            currentElements++;
             notify();
     }
 
-    public synchronized T poll() {
-            while (queue.peek() == null) {
-                try {
+    public synchronized T poll() throws InterruptedException {
+            while (queue.isEmpty()) {
                     wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
             }
-            currentElements--;
             T result = queue.poll();
             notify();
             return result;
