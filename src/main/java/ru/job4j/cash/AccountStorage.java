@@ -29,7 +29,7 @@ public class AccountStorage {
         boolean result = true;
         Optional<Account> from = getById(fromId);
         Optional<Account> to = getById(toId);
-        if (from.isEmpty() || to.isEmpty()) {
+        if (from.isEmpty() || to.isEmpty() || from.get().amount() < amount) {
             return false;
         }
         update(new Account(fromId, from.get().amount() - amount));
