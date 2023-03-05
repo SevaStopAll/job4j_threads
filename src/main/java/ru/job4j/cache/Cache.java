@@ -13,11 +13,10 @@ public class Cache {
 
     public boolean update(Base model) {
         BiFunction<Integer, Base, Base>  bi = (id, base) -> {
-            Base stored = memory.get(model.getId());
-            if (stored.getVersion() != model.getVersion()) {
+            if (base.getVersion() != model.getVersion()) {
                 throw new OptimisticException("Versions are not equal");
             }
-            return new Base(id, base.getVersion() + 1);
+            return new Base(id, base.getVersion() + 1, base.getName());
         };
        return memory.computeIfPresent(model.getId(), bi) != null;
     }

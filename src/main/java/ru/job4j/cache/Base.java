@@ -10,6 +10,12 @@ public class Base {
         this.version = version;
     }
 
+    public Base(int id, int version, String name) {
+        this.id = id;
+        this.version = version;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
