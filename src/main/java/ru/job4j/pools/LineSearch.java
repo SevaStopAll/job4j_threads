@@ -2,12 +2,13 @@ package ru.job4j.pools;
 
 public class LineSearch {
 
-    public static int search(int[] array, int from, int to, int goal) {
-        for (int i = from; i < to; i++) {
+    public static <T> int search(T[] array, int from, int to, T goal) {
+        int result = -1;
+        for (int i = from; i <= to; i++) {
             if (array[i] == goal) {
-                return i;
+                result = i;
             }
         }
-        return -1;
+        return result;
     }
 }

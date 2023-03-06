@@ -4,13 +4,13 @@ package ru.job4j.pools;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class ParallelSearch extends RecursiveTask<Integer> {
-    private final int[] array;
+public class ParallelSearch<T> extends RecursiveTask<Integer> {
+    private final T[] array;
     private final int from;
     private final int to;
-    private final int goal;
+    private final T goal;
 
-    public ParallelSearch(int[] array, int from, int to, int goal) {
+    public ParallelSearch(T[] array, int from, int to, T goal) {
         this.array = array;
         this.from = from;
         this.to = to;
@@ -23,14 +23,14 @@ public class ParallelSearch extends RecursiveTask<Integer> {
             return LineSearch.search(array, from, to, goal);
         }
         if (from == to) {
-            if (array[from] == goal) {
+            if (array[from].equals(goal)) {
             return from;
             }
-            return - 1;
+            return -1;
         }
         int mid = (from + to) / 2;
-        ParallelSearch leftSort = new ParallelSearch(array, from, mid, goal);
-        ParallelSearch rightSort = new ParallelSearch(array,mid + 1, to, goal);
+        ParallelSearch<T> leftSort = new ParallelSearch<>(array, from, mid, goal);
+        ParallelSearch<T> rightSort = new ParallelSearch<>(array, mid + 1, to, goal);
         leftSort.fork();
         rightSort.fork();
         int left = leftSort.join();
@@ -38,9 +38,9 @@ public class ParallelSearch extends RecursiveTask<Integer> {
         return Math.max(left, right);
     }
 
-    public static int search(int[] array, int from, int to, int target) {
+    public static <T>  int search(T[] array, int from, int to, T target) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        return forkJoinPool.invoke(new ParallelSearch(array, from, to, target));
+        return forkJoinPool.invoke(new ParallelSearch<>(array, from, to, target));
     }
 
 }

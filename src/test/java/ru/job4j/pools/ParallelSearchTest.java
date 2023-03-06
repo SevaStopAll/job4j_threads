@@ -1,27 +1,47 @@
 package ru.job4j.pools;
 
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParallelSearchTest {
 
     @Test
-    void whenSearchString() {}
-
-    @Test
-    void whenSearchInt() {}
-
-    @Test
-    void whenArraySmall() {
-        int[] array = {1, 2, 3, 4, 5, 6, 7, 10, 12, 13, 15, 176};
-        System.out.println(ParallelSearch.search(array, 0, array.length-1, 12));
+    void whenSearchString() {
+        String[] array = {"Alla", "Lena", "Clair", "Dina", "Dickson", "Tess", "Tuta", "Olga", "Thomas", "Helga", "Lola", "Rex", "Tintin"};
+        int expected = 0;
+        int result = ParallelSearch.search(array, 0, array.length - 1, "Alla");
+        assertThat(result).isEqualTo(expected);
     }
 
     @Test
-    void whenArrayBig() {}
+    void whenSearchChar() {
+        Character[] array = {'a', 'A', 'L', 'l', 'R', 'E', 'R', 'Q', 'Y', 'Q', 'u'};
+        int expected = 0;
+        int result = ParallelSearch.search(array, 0, array.length - 1, 'a');
+        assertThat(result).isEqualTo(expected);
+    }
 
     @Test
-    void whenElementNotFound() {}
+    void whenIntArraySmall() {
+        Integer[] array = {1, 2, 3, 4, 5, 6, 7, 10, 12};
+        int expected = 8;
+        int result = ParallelSearch.search(array, 0, array.length - 1, 12);
+        assertThat(result).isEqualTo(expected);
+    }
 
+    @Test
+    void whenIntArrayBig() {
+        Integer[] array = {1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24};
+        int expected = 8;
+        int result = ParallelSearch.search(array, 0, array.length - 1, 12);
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void whenElementNotFound() {
+        Integer[] array = {1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24};
+        int expected = -1;
+        int result = ParallelSearch.search(array, 0, array.length - 1, 55);
+        assertThat(result).isEqualTo(expected);
+    }
 }
