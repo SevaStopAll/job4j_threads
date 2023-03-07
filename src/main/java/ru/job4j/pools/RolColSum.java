@@ -4,33 +4,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class RolColSum {
-    public static class Sums {
-        private final int rowSum;
-        private final int colSum;
-
-        public Sums(int rowSum, int colSum) {
-            this.rowSum = rowSum;
-            this.colSum = colSum;
-        }
-
-        public int getRowSum() {
-            return rowSum;
-        }
-
-        public int getColSum() {
-            return colSum;
-        }
 
     public static Sums[] sum(int[][] matrix) {
         Sums[] sums = new Sums[matrix.length];
         for (int a = 0; a < matrix.length; a++) {
             int colSum =  0;
             int rowSum = 0;
-            for (int[] ints : matrix) {
-                colSum += ints[a];
-            }
-            for (int x = 0; x < matrix.length; x++) {
-                rowSum += matrix[a][x];
+            for (int i = 0; i < matrix.length; i++) {
+                colSum += matrix[i][a];
+                rowSum += matrix[a][i];
             }
             sums[a] = new Sums(rowSum, colSum);
         }
@@ -58,7 +40,8 @@ public class RolColSum {
             return new Sums(rowSum, colSum);
         });
     }
-    }
 
 }
+
+
 

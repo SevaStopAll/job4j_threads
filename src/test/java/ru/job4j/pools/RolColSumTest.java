@@ -15,7 +15,7 @@ class RolColSumTest {
                 {4, 7, 9},
                 {6, 5, 3}
         };
-        RolColSum.Sums[] sum = RolColSum.Sums.sum(array);
+        Sums[] sum = RolColSum.sum(array);
         assertThat(sum[0].getColSum()).isEqualTo(15);
         assertThat(sum[0].getRowSum()).isEqualTo(18);
         assertThat(sum[1].getColSum()).isEqualTo(18);
@@ -31,7 +31,7 @@ class RolColSumTest {
                 {4, 7, 9},
                 {6, 5, 3}
         };
-        RolColSum.Sums[] sum = RolColSum.Sums.asyncSum(array);
+        Sums[] sum = RolColSum.asyncSum(array);
         assertThat(sum[0].getColSum()).isEqualTo(15);
         assertThat(sum[0].getRowSum()).isEqualTo(18);
         assertThat(sum[1].getColSum()).isEqualTo(18);
