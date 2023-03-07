@@ -31,10 +31,8 @@ public class RolColSum {
         return CompletableFuture.supplyAsync(() -> {
             int colSum =  0;
             int rowSum = 0;
-            for (int[] datum : data) {
-                colSum += datum[element];
-            }
             for (int i = 0; i < data.length; i++) {
+                colSum += data[i][element];
                 rowSum += data[element][i];
             }
             return new Sums(rowSum, colSum);
