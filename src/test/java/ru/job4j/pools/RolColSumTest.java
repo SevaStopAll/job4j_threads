@@ -39,5 +39,4 @@ class RolColSumTest {
         assertThat(sum[2].getColSum()).isEqualTo(19);
         assertThat(sum[2].getRowSum()).isEqualTo(14);
     }
-
 }
