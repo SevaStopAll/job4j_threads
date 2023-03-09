@@ -11,4 +11,4 @@ Immutable objects, Atomic classes.
 Java NIO in multithreading.
 What is Thread pool and how to work with ExecutorService and ForkJoinPool.
 What is the difference between Callable, Runnable and Future.
-How to use asynchronous execution and what is CompletableFuture. 
+How to use asynchronous execution and what is CompletableFuture.
